@@ -1,0 +1,4 @@
+#!/bin/bash
+
+rosservice call /teach_mode "teach_mode: 1
+robot: 'right_hand'"
