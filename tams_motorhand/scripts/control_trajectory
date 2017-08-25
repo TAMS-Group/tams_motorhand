@@ -1,4 +1,6 @@
 #!/bin/bash
 
-rosservice call /teach_mode "teach_mode: 0
+service=$(rosservice list | grep 'teach_mode$')
+
+rosservice call $service "teach_mode: 0
 robot: 'right_hand'"
