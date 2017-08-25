@@ -95,5 +95,6 @@
     <param name="wait_for" value="calibrated"/>
   </node>
 
+  <node name="stop_mfj4_position_controller" pkg="tams_motorhand" type="stop_mfj4_controller.py"/>
 </group>
 </launch>
