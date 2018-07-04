@@ -96,5 +96,7 @@
   </node>
 
   <node name="stop_mfj4_position_controller" pkg="tams_motorhand" type="stop_mfj4_controller.py"/>
+
+  <include file="$(find tams_biotac)/launch/biotac.launch" />
 </group>
 </launch>
