@@ -11,5 +11,4 @@
     <arg name="use_moveit" value="true"/> 
     <arg name="sim" value="false"/> 
   </include> 
-  <node name="stop_mfj4_position_controller" pkg="tams_motorhand" type="stop_mfj4_controller.py"/>
 </launch>
