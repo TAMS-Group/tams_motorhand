@@ -1,8 +1,6 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="biotac_links">
 
-  <xacro:property name="pi" value="3.1415926535897931" />
-
   <xacro:macro name="biotac" params="prefix">
     <link name="${prefix}ff_biotac_link">
       <origin xyz="0.0 0.0 0.0"/>
