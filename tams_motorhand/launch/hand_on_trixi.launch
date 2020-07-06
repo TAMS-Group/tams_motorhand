@@ -90,7 +90,7 @@
 
   <node name="shadow_joint_forward" pkg="topic_tools" type="relay" args="joint_states /joint_states"/>
 
-  <node name="$(arg hand_id)_trajectory_controller" pkg="sr_utilities" type="trajectory_controller_spawner.py" output="screen">
+  <node name="$(arg hand_id)_trajectory_controller" pkg="sr_utilities" type="controller_spawner.py" output="screen">
     <param name="hand_trajectory" value="true"/>
     <param name="wait_for" value="calibrated"/>
   </node>
