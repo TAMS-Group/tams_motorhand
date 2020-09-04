@@ -17,7 +17,9 @@ name="tams_motorhand">
 
        - v4hn@20200830
   -->
-  <xacro:arg name="type" />
+
+<!-- You are *forced* to specify the correct hand to avoid stupid mistakes -->
+<!--  <xacro:arg name="type" default="invalid" /> -->
 
   <xacro:tams_motorhand prefix="lh_" type="$(arg type)" />
 </robot>
