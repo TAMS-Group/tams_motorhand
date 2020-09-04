@@ -4,17 +4,17 @@
   <!-- include macro definitions -->
   <xacro:include filename="$(find sr_description)/hand/xacro/full_hand.urdf.xacro" />
   <xacro:include filename="$(find sr_description)/other/xacro/gazebo/gazebo.urdf.xacro" />
-  <xacro:include filename="$(find tams_motorhand_description)/urdf/biotac.urdf.xacro" />
 
-  <xacro:macro name="tams_motorhand" params="prefix left:=false">
-    <xacro:unless value="${left}">
+  <xacro:macro name="tams_motorhand" params="prefix type">
+    <xacro:if value="${type == 'right_biotac'}">
       <!-- shadow motorhand BioTac -->
       <xacro:shadowhand muscletrans="false" muscle="false" bio="true" bt_sp="false" ubi="false" eli="false" reflect="1.0" prefix="${prefix}" lf="true" />
+      <xacro:include filename="$(find tams_motorhand_description)/urdf/biotac.urdf.xacro" />
       <xacro:biotac prefix="${prefix}" />
-    </xacro:unless>
+    </xacro:if>
 
-    <xacro:if value="${left}">
-      <!-- shadow motorhand BioTac -->
+    <xacro:if value="${type == 'left_pst'}">
+      <!-- shadow left motorhand PST sensing -->
       <xacro:shadowhand muscletrans="false" muscle="false" bio="false" bt_sp="false" ubi="false" eli="false" reflect="-1.0" prefix="${prefix}" lf="true" />
     </xacro:if>
   </xacro:macro>

@@ -7,12 +7,17 @@ name="tams_motorhand">
   <xacro:include filename="$(find tams_motorhand_description)/urdf/tams_motorhand.urdf.xacro" />
   <xacro:include filename="$(find sr_description)/materials.urdf.xacro" />
 
-  <!-- hand with cylindrical base drifts in gazebo, attach it to the world -->
-  <link name="world" />
-  <joint name="rh_world_joint" type="fixed">
-    <parent link="world" />
-    <child link="rh_forearm" />
-    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
-  </joint>
-  <xacro:tams_motorhand prefix="rh_" type="right_biotac" />
+  <!--
+       In this robot description the shadow hand is not attached to a parent link.
+
+       This description is isolated from the rest of the robot and used only by the shadow-modules.
+
+       ros_control tries to load all joints/transmissions it can find in the robot_description,
+       so we feed it only the shadow hand here.
+
+       - v4hn@20200830
+  -->
+  <xacro:arg name="type" />
+
+  <xacro:tams_motorhand prefix="lh_" type="$(arg type)" />
 </robot>

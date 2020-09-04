@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 <launch>
 <group ns="hand">
-  <node name="hand_stub" pkg="tams_motorhand" type="hand_stub.py"/>
+  <node name="right_hand_stub" pkg="tams_motorhand" type="hand_stub.py">
+    <param name="prefix" value="rh_" />
+  </node>
 
   <node name="shadow_joint_forward" pkg="topic_tools" type="relay" args="joint_states /joint_states"/>
 </group>

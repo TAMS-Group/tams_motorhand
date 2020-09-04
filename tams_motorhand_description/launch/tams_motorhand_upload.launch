@@ -1,4 +1,5 @@
 <?xml version="1.0"?>
 <launch>
-  <param name="robot_description" command="$(find xacro)/xacro.py '$(find tams_motorhand_description)/robots/tams_motorhand.urdf.xacro'" />
+  <!-- uploads right_biotac hand with world joint -->
+  <param name="robot_description" command="xacro '$(find tams_motorhand_description)/robots/tams_motorhand.urdf.xacro'" />
 </launch>

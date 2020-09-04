@@ -13,12 +13,14 @@ import control_msgs.msg
 
 class HandStub:
   def __init__(self):
-    self.action= actionlib.SimpleActionServer("rh_trajectory_controller/follow_joint_trajectory", control_msgs.msg.FollowJointTrajectoryAction, execute_cb= self.action_cb, auto_start= False)
+    prefix= rospy.get_param("prefix", default="rh_")
+    self.action= actionlib.SimpleActionServer(prefix+"trajectory_controller/follow_joint_trajectory", control_msgs.msg.FollowJointTrajectoryAction, execute_cb= self.action_cb, auto_start= False)
     self.action.start()
 
     self.joint_pub= rospy.Publisher('joint_states', sensor_msgs.msg.JointState, queue_size= 1)
 
-    joints= ['rh_WRJ2', 'rh_WRJ1', 'rh_FFJ4', 'rh_FFJ3', 'rh_FFJ2', 'rh_FFJ1', 'rh_LFJ5', 'rh_LFJ4', 'rh_LFJ3', 'rh_LFJ2', 'rh_LFJ1', 'rh_MFJ4', 'rh_MFJ3', 'rh_MFJ2', 'rh_MFJ1', 'rh_RFJ4', 'rh_RFJ3', 'rh_RFJ2', 'rh_RFJ1', 'rh_THJ5', 'rh_THJ4', 'rh_THJ3', 'rh_THJ2', 'rh_THJ1']
+    joints= ['WRJ2', 'WRJ1', 'FFJ4', 'FFJ3', 'FFJ2', 'FFJ1', 'LFJ5', 'LFJ4', 'LFJ3', 'LFJ2', 'LFJ1', 'MFJ4', 'MFJ3', 'MFJ2', 'MFJ1', 'RFJ4', 'RFJ3', 'RFJ2', 'RFJ1', 'THJ5', 'THJ4', 'THJ3', 'THJ2', 'THJ1']
+    joints= [prefix + j for j in joints]
 
     self.js= sensor_msgs.msg.JointState(
       name= joints,
@@ -32,7 +34,7 @@ class HandStub:
         self.js.position[i]= 0.35
 
   def action_cb(self, goal):
-    self.action.set_aborted(None, "This is a stub that is supposed to fail")
+    self.action.set_aborted(None, "This is a stub. Execution will always fail.")
 
   def run(self):
     r= rospy.Rate(50)
