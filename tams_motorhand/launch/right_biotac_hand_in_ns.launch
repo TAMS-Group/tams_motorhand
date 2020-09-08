@@ -23,7 +23,7 @@
   <!-- Set to 0 if we don't want to run calibration controllers (e.g. for the muscle hand) -->
   <arg name="calibration_controllers" default="1"/>
   <!-- Xacro file containing the robot description we want to load -->
-  <arg name="robot_description" default="$(find tams_motorhand_description)/robots/tams_motorhand_standalone.urdf.xacro type:=right_biotac"/>
+  <arg name="robot_description" default="$(find tams_motorhand_description)/robots/tams_motorhand_standalone.urdf.xacro"/>
   <!-- The control mode PWM (true) or torque (false) -->
   <arg name="pwm_control" default="$(optenv PWM_CONTROL 1)"/>
   <!-- use ns or not -->
@@ -36,11 +36,11 @@
   <arg name="mapping_path" default="$(find sr_edc_launch)/mappings/default_mappings/rh_E_v1.yaml"/>
 
   <!-- Loads the robot description from the file passed as an argument -->
-  <param name="robot_description" command="$(find xacro)/xacro.py '$(arg robot_description)' prefix:=$(arg hand_id)_"/>
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(arg robot_description)' prefix:=$(arg hand_id)_ type:=right_biotac "/>
 
   <param name="/hand/mapping/$(arg hand_serial)" value="$(arg hand_id)"/>
   <param name="/hand/joint_prefix/$(arg hand_serial)" value="$(arg hand_id)_"/>
-   
+
   <!-- Load parameters for the hand -->
   <include file="$(find sr_edc_launch)/load_hand_parameters.xml">
     <arg name="hand_id" value="$(arg hand_id)"/>
