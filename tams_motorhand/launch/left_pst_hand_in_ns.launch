@@ -26,7 +26,7 @@
   <arg name="mapping_path" default="$(find sr_edc_launch)/mappings/default_mappings/lh_E_v3.yaml"/>
 
   <!-- Loads the robot description -->
-  <param name="robot_description" command="xacro --inorder '$(find tams_motorhand_description)/robots/tams_motorhand_standalone.urdf.xacro' type:=left_pst"/>
+  <param name="robot_description" command="xacro --inorder '$(find tams_motorhand_description)/robots/tams_motorhand_standalone.urdf.xacro' prefix:=$(arg hand_id)_ type:=left_pst"/>
 
   <param name="/hand/mapping/$(arg hand_serial)" value="$(arg hand_id)"/>
   <param name="/hand/joint_prefix/$(arg hand_serial)" value="$(arg hand_id)_"/>
