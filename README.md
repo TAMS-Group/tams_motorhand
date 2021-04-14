@@ -13,6 +13,7 @@ The Shadow hand can be used in different setups, on the one side directly connec
 #### ATTENTION
 
 * To start the hand connected to the base station 
+    - mannaully set ROS_MASTER_URI to localhost or run ``` local_ros ```.
     - need to bring up the second ethercat port manually. In /etc/netplan/02-tams-interfaces.yaml, enable "enp5s2" networt port then run ```sudo ip link set dev enp5s2 up```.
     - use the ```right_biotac_hand.launch``` file. The hand will be started in trajectory control mode. With the ```right_biotac_hand_no_controllers.launch``` the hand is started without controllers.
 
