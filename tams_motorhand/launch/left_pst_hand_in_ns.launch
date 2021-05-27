@@ -78,7 +78,7 @@
 
   <node name="teach_mode_node" pkg="sr_robot_launch" type="teach_mode_node" output="screen"/>
 
-  <node name="shadow_joint_forward" pkg="topic_tools" type="relay" args="joint_states /hand/joint_states"/>
+  <node name="shadow_joint_forward" pkg="topic_tools" type="relay" args="joint_states /joint_states"/>
 
   <node name="$(arg hand_id)_trajectory_controller" pkg="sr_utilities" type="controller_spawner.py" output="screen">
     <param name="hand_trajectory" value="true"/>
