@@ -35,6 +35,8 @@
   <!-- the path to the mapping files -->
   <arg name="mapping_path" default="$(find sr_edc_launch)/mappings/default_mappings/rh_E_v1.yaml"/>
 
+  <arg name="filter_invalid_joints" default="true"/>
+
   <!-- Loads the robot description from the file passed as an argument -->
   <param name="robot_description" command="$(find xacro)/xacro.py '$(arg robot_description)' prefix:=$(arg hand_id)_ type:=right_biotac "/>
 
@@ -63,6 +65,8 @@
       <param unless="$(arg pwm_control)" name="$(arg hand_id)/default_control_mode" value="FORCE"/>
       <param name="use_ns" value="$(arg use_ns)"/>
       <param name="image_path" value="$(find sr_movements)/movements/test.png"/>
+
+      <remap if="$(arg filter_invalid_joints)" from="joint_states" to="joint_states_original" />
     </node>
   </group>
   <group unless="$(arg debug)">
@@ -72,8 +76,12 @@
       <param unless="$(arg pwm_control)" name="$(arg hand_id)/default_control_mode" value="FORCE"/>
       <param name="use_ns" value="$(arg use_ns)"/>
       <param name="image_path" value="$(find sr_movements)/movements/test.png"/>
+
+      <remap if="$(arg filter_invalid_joints)" from="joint_states" to="joint_states_original" />
     </node>
   </group>
+
+  <node if="$(arg filter_invalid_joints)" name="invalid_joint_states_filter" pkg="tams_motorhand" type="filter_invalid_joint_states.py" />
 
   <group if="$(arg calibration_controllers)">
     <node name="calibrate_sr_edc" pkg="sr_utilities" type="calibrate_hand_finder.py" output="screen"/>
@@ -96,5 +104,6 @@
   </node>
 
   <include file="$(find tams_biotac)/launch/biotac.launch" />
+
 </group>
 </launch>
