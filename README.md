@@ -21,3 +21,7 @@ The Shadow hand can be used in different setups, on the one side directly connec
 * To use the hand with the PR2 start ```right_biotac_hand_in_ns.launch``` on c2, this assumes tams_pr2_bringup's trixi.launch is already running.
 
 * With ``` right_biotac_hand_gazebo.launch``` the simulation of the hand can be started as well as the moveit demo mode with ``` right_biotac_hand_moveit_demo.launch```
+
+#### Left motor hand motor layout
+
+![](tams_motorhand/media/left_shadow_hand_motor_layout.svg)
