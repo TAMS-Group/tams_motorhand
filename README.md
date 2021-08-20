@@ -25,7 +25,7 @@ The Shadow hand can be used in different setups, on the one side directly connec
 * To limit the hand maximum force, copy this file:
   - left hand:
   ```
-  cp config/lh_motor_board_effort_controllers.yaml PATH_TO_sr_config/sr_ethercat_hand_config/controls/motors/lh/motor_board_effort_controllers.yaml
+  cp tams_motor_hand/config/lh_motor_board_effort_controllers.yaml PATH_TO_sr_config/sr_ethercat_hand_config/controls/motors/lh/motor_board_effort_controllers.yaml
   ```
 #### Left motor hand motor layout
 
