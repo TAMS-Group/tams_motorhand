@@ -22,6 +22,11 @@ The Shadow hand can be used in different setups, on the one side directly connec
 
 * With ``` right_biotac_hand_gazebo.launch``` the simulation of the hand can be started as well as the moveit demo mode with ``` right_biotac_hand_moveit_demo.launch```
 
+* To limit the hand maximum force, copy this file:
+  - left hand:
+  ```
+  cp config/lh_motor_board_effort_controllers.yaml PATH_TO_sr_config/sr_ethercat_hand_config/controls/motors/lh/motor_board_effort_controllers.yaml
+  ```
 #### Left motor hand motor layout
 
 ![](tams_motorhand/media/left_shadow_hand_motor_layout.svg)
