@@ -3,4 +3,4 @@
 service=$(rosservice list | grep 'teach_mode$')
 
 rosservice call $service "teach_mode: 1
-robot: 'right_hand'"
+robot: '$(rosparam get /hand_motion_server/hand_type)'"
