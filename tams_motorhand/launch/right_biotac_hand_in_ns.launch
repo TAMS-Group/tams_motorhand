@@ -35,7 +35,7 @@
   <!-- the path to the mapping files -->
   <arg name="mapping_path" default="$(find sr_edc_launch)/mappings/default_mappings/rh_E_v1.yaml"/>
 
-  <arg name="filter_invalid_joints" default="false"/>
+  <arg name="filter_invalid_joints" default="true"/>
 
   <!-- Loads the robot description from the file passed as an argument -->
   <param name="robot_description" command="$(find xacro)/xacro.py '$(arg robot_description)' prefix:=$(arg hand_id)_ type:=right_biotac "/>
