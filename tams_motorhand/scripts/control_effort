@@ -2,5 +2,15 @@
 
 service=$(rosservice list | grep 'teach_mode$')
 
+# TODO(v4hn): come up with something better here...
+if rosparam list | grep -q /rh/; then
+  robot="right_hand"
+elif rosparam list | grep -q /lh/; then
+  robot="left_hand"
+else
+  echo "Could not infer the hand type. Please adapt this detection for your use-case." >&2
+  exit 1
+fi
+
 rosservice call $service "teach_mode: 1
-robot: '$(rosparam get /hand_motion_server/hand_type)'"
+robot: '$robot'"
