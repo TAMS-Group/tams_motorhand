@@ -5,7 +5,6 @@ xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
 xmlns:xacro="http://www.ros.org/wiki/xacro"
 name="tams_motorhand">
   <xacro:include filename="$(find tams_motorhand_description)/urdf/tams_motorhand.urdf.xacro" />
-  <xacro:include filename="$(find sr_description)/materials.urdf.xacro" />
 
   <!--
        In this robot description the shadow hand is not attached to a parent link.
@@ -21,5 +20,5 @@ name="tams_motorhand">
 <!-- You are *forced* to specify the correct hand to avoid stupid mistakes -->
 <!--  <xacro:arg name="type" default="invalid" /> -->
 
-  <xacro:tams_motorhand prefix="$(arg prefix)" type="$(arg type)" />
+  <xacro:tams_motorhand type="$(arg type)" />
 </robot>
