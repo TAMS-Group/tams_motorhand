@@ -8,12 +8,12 @@
   <xacro:macro name="tams_motorhand" params="type">
     <xacro:if value="${type == 'right_biotac'}">
       <!-- shadow motorhand BioTac -->
-      <xacro:sr_hand hand_type="hand_e" hand_version="E3M5" side="right" fingers="all" tip_sensors="bt_2p" prox_sensors="none" mid_sensors="none" palm_sensor="none" />
+      <xacro:sr_hand hand_type="hand_e" hand_version="E3M5" side="right" fingers="all" tip_sensors="bt_2p" prox_sensors="none" mid_sensors="none" palm_sensor="none" mounting_plate="false"/>
     </xacro:if>
 
     <xacro:if value="${type == 'left_pst'}">
       <!-- shadow left motorhand PST sensing -->
-      <xacro:sr_hand hand_type="hand_e" hand_version="E3M5" side="left" fingers="all" tip_sensors="pst" prox_sensors="none" mid_sensors="none" palm_sensor="none" />
+      <xacro:sr_hand hand_type="hand_e" hand_version="E3M5" side="left" fingers="all" tip_sensors="pst" prox_sensors="none" mid_sensors="none" palm_sensor="none" mounting_plate="true" />
     </xacro:if>
   </xacro:macro>
 </robot>
