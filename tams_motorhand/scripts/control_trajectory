@@ -3,9 +3,9 @@
 service=$(rosservice list | grep 'teach_mode$')
 
 # TODO(v4hn): come up with something better here...
-if rosparam list | grep -q /rh/; then
+if [[ $(rosparam list | grep /rh/ | wc -l) -gt 0 ]]; then
   robot="right_hand"
-elif rosparam list | grep -q /lh/; then
+elif [[ $(rosparam list | grep /lh/ | wc -l) -gt 0 ]]; then
   robot="left_hand"
 else
   echo "Could not infer the hand type. Please adapt this detection for your use-case." >&2
