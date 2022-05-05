@@ -9,6 +9,9 @@
     <xacro:if value="${type == 'right_biotac'}">
       <!-- shadow motorhand BioTac -->
       <xacro:sr_hand hand_type="hand_e" hand_version="E3M5" side="right" fingers="all" tip_sensors="bt_2p" prox_sensors="none" mid_sensors="none" palm_sensor="none" mounting_plate="false"/>
+
+      <xacro:include filename="$(find tams_motorhand_description)/urdf/biotac.urdf.xacro" />
+      <xacro:biotac prefix="rh_" />
     </xacro:if>
 
     <xacro:if value="${type == 'left_pst'}">
