@@ -5,7 +5,7 @@
 <!--see: https://github.com/ros/ros_comm/issues/360-->
 <!--in case any change of left_pst_hand_in_ns.launch file, should also copy to this file.-->
 <!--
-   This is an adapted version of sr_edc_launch/sr_edc.launch, adapted from hand_on_trixi.launch
+   This is an adapted version of sr_edc_launch/sr_edc.launch, adapted from hand_on_pr2.launch
    and adapted for the left motorhand used in the tams_f329 setup
    - v4hn@20200831
    update some new parameters from sr_edc.launch

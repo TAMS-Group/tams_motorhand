@@ -3,13 +3,13 @@
    This is an adapted version of sr_edc_launch/sr_edc.launch
 
    The file launches our C6 Motorhand connected to c2
-   and assumes tams_pr2_bringup's trixi.launch is already running.
+   and assumes tams_pr2_bringup's tams_pr2.launch is already running.
 
    It has to be started on c2.
 
    Additionally it starts the FollowJointTrajectory server to connect to MoveIt.
 
-   To avoid conflicts with the rest of trixi we start everything in the namespace "hand".
+   To avoid conflicts with the rest of the PR2 we start everything in the namespace "hand".
 
    - v4hn@20170822
 -->

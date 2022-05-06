@@ -18,7 +18,7 @@ The Shadow hand can be used in different setups, on the one side directly connec
     - use the ```right_biotac_hand.launch``` file. The hand will be started in trajectory control mode. With the ```right_biotac_hand_no_controllers.launch``` the hand is started without controllers.
 
 
-* To use the hand with the PR2 start ```right_biotac_hand_in_ns.launch``` on c2, this assumes tams_pr2_bringup's trixi.launch is already running.
+* To use the hand with the PR2 start ```right_biotac_hand_in_ns.launch``` on c2, this assumes tams_pr2_bringup's tams_pr2.launch is already running.
 
 * With ``` right_biotac_hand_gazebo.launch``` the simulation of the hand can be started as well as the moveit demo mode with ``` right_biotac_hand_moveit_demo.launch```
 
