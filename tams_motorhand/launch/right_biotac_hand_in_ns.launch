@@ -111,5 +111,9 @@
   </node>
 
   <include file="$(find tams_biotac)/launch/biotac.launch" />
+
+  <node name="detect_unresponsive_hand" pkg="tams_motorhand" type="detect_unresponsive_hand.py">
+    <remap from="joint_states" to="joint_states_original" />
+  </node>
 </group>
 </launch>
