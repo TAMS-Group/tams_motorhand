@@ -5,7 +5,7 @@ xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
 xmlns:xacro="http://www.ros.org/wiki/xacro"
 name="tams_motorhand">
   <xacro:include filename="$(find tams_motorhand_description)/urdf/tams_motorhand.urdf.xacro" />
-  <xacro:include filename="$(find sr_description)/materials.urdf.xacro" />
+  <xacro:include filename="$(find sr_description)/other/xacro/materials.urdf.xacro" />
 
   <!-- hand with cylindrical base drifts in gazebo, attach it to the world -->
   <link name="world" />

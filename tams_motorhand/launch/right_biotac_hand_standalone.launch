@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch> 
+  <include file="$(find tams_motorhand)/launch/srhand.launch"> 
+    <arg name="eth_port" value="$(env SHADOW_ETHERCAT_PORT)" />
+    <arg name="hand_serial" value="554" />
+    <arg name="hand_id" value="rh" /> 
+
+    <arg name="mapping_path" value="$(find sr_edc_launch)/mappings/default_mappings/rh_E_v1.yaml"/> 
+    
+    <arg name="use_moveit" value="true"/> 
+    <arg name="sim" value="false"/> 
+  </include> 
+  
+  <include file="$(find tams_biotac)/launch/biotac.launch" />
+</launch>

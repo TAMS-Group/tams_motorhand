@@ -11,9 +11,17 @@
   <!-- By default, don't show the GUI of the joint state publisher -->
   <arg name="use_gui" default="false" />
 
+  <!-- The id for the right hand. It needs to be the same (but without trailing underscore) as the prefix used in the hand model. -->
+  <arg name="hand_id" default="rh"/>
+
+  <!-- Xacro file containing the robot description we want to load -->
+  <arg name="robot_description" default="$(find tams_motorhand_description)/robots/tams_motorhand_standalone.urdf.xacro"/>
+  <!-- Loads the robot description from the file passed as an argument -->
+  <param name="robot_description" command="xacro $(arg robot_description) prefix:=$(arg hand_id)_ type:=right_biotac"/>
+  
   <!-- Load the URDF, SRDF and other .yaml configuration files on the param server -->
   <include file="$(find sr_moveit_hand_config)/launch/planning_context.launch">
-    <arg name="load_robot_description" value="true"/>
+    <arg name="load_robot_description" value="false"/>
     <arg name="hand_urdf" value="$(find tams_motorhand_description)/robots/tams_motorhand.urdf.xacro"/>
   </include>
 
