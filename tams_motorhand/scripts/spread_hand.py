@@ -38,7 +38,7 @@ traj.points[0].positions = [
     0.0018684990049854181,
     -0.11587408526722277,
     0.349065850399]
-traj.points[0].time_from_start.secs = 1.0
+traj.points[0].time_from_start = rospy.Duration(1.0)
 
 pub.publish(traj)
 rospy.sleep(2.0)
