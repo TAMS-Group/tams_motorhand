@@ -33,5 +33,8 @@ def zero_invalid_joints(msg):
 if __name__ == '__main__':
     rospy.init_node('invalid_joint_state_filter')
     pub= rospy.Publisher('joint_states', JointState, queue_size=1)
-    sub= rospy.Subscriber('joint_states_original', JointState, zero_invalid_joints, queue_size=1)
+    # python3 + ros noetic has random delays that can result in 25Hz output with queue_size=1
+    # queue_size=10 seems to mitigate the problem well enough, but someone really needs to fix this.... somewhere...
+    # -- v4hn@20220824
+    sub= rospy.Subscriber('joint_states_original', JointState, zero_invalid_joints, queue_size=10)
     rospy.spin()
