@@ -1,0 +1,103 @@
+#!/usr/bin/env python
+
+import rospy
+import controller_manager_msgs.srv
+import sr_robot_msgs.srv
+import sr_robot_msgs.msg
+
+NL="\n"
+
+def main():
+    rospy.init_node('switch_hand', anonymous=True)
+    ns = rospy.get_param('~ns', 'hand')
+    if len(ns) > 0 and ns[-1] != '/':
+        ns = f'{ns}/'
+    prefix = rospy.get_param('~prefix', 'rh')
+    
+    effort_controllers = []    
+    position_controllers = [f'{prefix}_trajectory_controller', f'{prefix}_wr_trajectory_controller']
+    for j in ['ffj0', 'ffj3', 'ffj4', 'mfj0', 'mfj3', 'mfj4', 'rfj0', 'rfj3', 'rfj4', 'lfj0', 'lfj3', 'lfj4', 'lfj5', 'thj1', 'thj2', 'thj3', 'thj4', 'thj5', 'wrj1', 'wrj2']:
+        effort_controllers.append(f'sh_{prefix}_{j}_effort_controller')
+        position_controllers.append(f'sh_{prefix}_{j}_position_controller')
+
+    target_mode = rospy.get_param('~mode', 'torque')
+    if target_mode == 'torque':
+        target_controllers = effort_controllers
+        stoppable_controllers = position_controllers
+    elif target_mode == 'position':
+        target_controllers = position_controllers
+        stoppable_controllers = effort_controllers
+    else:
+        rospy.logfatal(f'trying to switch to unknown mode: {target_mode}')
+        return
+
+    # setup services
+    rospy.loginfo("Setting up service clients")
+    rospy.wait_for_service(f'{ns}controller_manager/list_controllers')
+    list_controllers = rospy.ServiceProxy(f'{ns}controller_manager/list_controllers', controller_manager_msgs.srv.ListControllers)
+    rospy.wait_for_service(f'{ns}controller_manager/load_controller')
+    load_controller = rospy.ServiceProxy(f'{ns}controller_manager/load_controller', controller_manager_msgs.srv.LoadController)
+    rospy.wait_for_service(f'{ns}controller_manager/switch_controller')
+    switch_controllers = rospy.ServiceProxy(f'{ns}controller_manager/switch_controller', controller_manager_msgs.srv.SwitchController)
+    rospy.wait_for_service(f'{ns}sr_hand_robot/{prefix}/change_control_type')
+    change_control_type = rospy.ServiceProxy(f'{ns}/sr_hand_robot/{prefix}/change_control_type', sr_robot_msgs.srv.ChangeControlType)
+
+    # check whether target controllers are loaded and load them if not
+    list_controllers_resp = list_controllers()
+    current_controllers = {c.name: c.state for c in list_controllers_resp.controller}
+
+    for controller in target_controllers:
+        if controller not in current_controllers:
+            rospy.loginfo(f'Loading controller: {controller}')
+            if not load_controller(controller).ok:
+                rospy.logfatal(f'Failed to load controller: {controller}')
+                return
+
+    # refresh controller list
+    list_controllers_resp = list_controllers()
+    current_controllers = {c.name: c.state for c in list_controllers_resp.controller}
+
+    # filter out controllers that are already running
+    target_controllers = [c for c in target_controllers if current_controllers[c] != 'running']
+    stoppable_controllers = [c for c in stoppable_controllers if c in current_controllers and current_controllers[c] == 'running']
+
+    # switch controllers
+    if len(stoppable_controllers) > 0:
+        rospy.loginfo(f'Stopping controllers: {NL+NL.join(stoppable_controllers)}')
+        req= controller_manager_msgs.srv.SwitchControllerRequest()
+        req.stop_controllers= stoppable_controllers
+        req.strictness= controller_manager_msgs.srv.SwitchControllerRequest.STRICT
+        req.start_asap= False
+        req.timeout= 1.0
+        if not switch_controllers(req).ok:
+            rospy.logfatal('Failed to switch controllers')
+            return
+
+    # switch hand control type
+    if target_mode == 'torque':
+        control_type = sr_robot_msgs.msg.ControlType.FORCE
+    else:
+        control_type = sr_robot_msgs.msg.ControlType.PWM
+
+    current_control_type = change_control_type(sr_robot_msgs.msg.ControlType(sr_robot_msgs.msg.ControlType.QUERY)).result.control_type
+    if current_control_type != control_type:
+        rospy.loginfo(f'Switching hand control type to {control_type}. current type is {current_control_type}')
+        change_control_type(sr_robot_msgs.msg.ControlType(control_type))
+        rospy.loginfo(f'Switched hand control type to {control_type}.')
+
+    # start target controllers
+    if len(target_controllers) > 0:
+        rospy.loginfo(f'Starting controllers: {NL+NL.join(target_controllers)}')
+        req= controller_manager_msgs.srv.SwitchControllerRequest()
+        req.start_controllers= target_controllers
+        req.strictness= controller_manager_msgs.srv.SwitchControllerRequest.STRICT
+        req.start_asap= False
+        req.timeout= 1.0
+        while not rospy.is_shutdown() and not switch_controllers(req).ok:
+            rospy.logerr('Failed to start controllers. Retrying...')
+
+        rospy.loginfo('Done.')
+
+
+if __name__ == '__main__':
+    main()
