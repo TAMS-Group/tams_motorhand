@@ -47,4 +47,4 @@ traj.points[0].positions = [
 traj.points[0].time_from_start = rospy.Duration(1.0)
 wrist_pub.publish(traj)
 
-rospy.sleep(2.0)
+rospy.sleep(5.0)
