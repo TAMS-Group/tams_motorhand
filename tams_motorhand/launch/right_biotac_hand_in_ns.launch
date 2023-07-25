@@ -36,7 +36,7 @@
   <!-- The joint state publisher publishing frequency  -->
   <arg name="joint_state_pub_frequency" default="100"/>
 
-  <arg name="filter_invalid_joints" default="true"/>
+  <arg name="filter_invalid_joints" default="false"/>
 
 <group ns="hand">
   <!-- Loads the robot description from the file passed as an argument -->
