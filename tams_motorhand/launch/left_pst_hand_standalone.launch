@@ -2,7 +2,7 @@
 <!--note: this file is a copy of left_pst_hand_in_ns.launch by delete the group, to make it run without a namespace, and-->
 <!--only run the hand.-->
 <!--this is because the ros currently don't support empty group name, so we can't make them into one file.-->
-<!--see: https://github.com/ros/ros_comm/issues/360-->
+<!--see: https://github.com/ros/ros_comm/issues/360 -->
 <!--in case any change of left_pst_hand_in_ns.launch file, should also copy to this file.-->
 <!--
    This is an adapted version of sr_edc_launch/sr_edc.launch, adapted from hand_on_pr2.launch
@@ -10,11 +10,13 @@
    - v4hn@20200831
    update some new parameters from sr_edc.launch
    - liang@20210702
+   use sr_hand_config for shadow hand config file location
+   - liang@20220314
 -->
 <launch>
     <!-- Allows to specify the ethernet interface/s to be used. It defaults to the value of the env var ETHERCAT_PORT
          More than one interface can be specified by concatenating them using underscore as a separator (e.g eth1_eth2_eth3) -->
-    <arg name="eth_port" default="eth2"/>
+    <arg name="eth_port" default="auxiliary2"/>
     <!-- Set to true for debugging -->
     <arg name="debug" default="false"/>
     <!-- Set to 0 if we don't want to run calibration controllers (e.g. for the muscle hand) -->
@@ -50,6 +52,7 @@
         <arg name="pwm_control" value="$(arg pwm_control)"/>
         <arg name="use_ns" value="$(arg use_ns)"/>
         <arg name="mapping_path" value="$(arg mapping_path)"/>
+        <arg name="hand_serial" value="$(arg hand_serial)"/>
     </include>
 
     <include file="$(find sr_edc_launch)/sr_edc.machine"/>
@@ -84,7 +87,7 @@
 
     <!-- diagnostic aggregator for being able to see the results in the robot_monitor -->
     <node pkg="diagnostic_aggregator" type="aggregator_node" name="diagnostic_aggregator">
-        <rosparam command="load" file="$(find sr_ethercat_hand_config)/diagnostic_analyzer.yaml"/>
+        <rosparam command="load" file="$(find sr_hand_config)/$(arg hand_serial)/diagnostic_analyzer.yaml"/>
     </node>
 
     <include file="$(find ros_ethercat_model)/launch/joint_state_publisher.launch">
@@ -94,6 +97,7 @@
     <!-- adding tactile state publisher using the tf prefix as a namespace -->
     <include file="$(find sr_tactile_sensor_controller)/sr_tactile_sensor.launch">
         <arg name="hand_id" value="$(arg hand_id)"/>
+        <arg name="hand_serial" value="$(arg hand_serial)"/>
     </include>
 
     <node name="teach_mode_node" pkg="sr_robot_launch" type="teach_mode_node" output="screen"/>

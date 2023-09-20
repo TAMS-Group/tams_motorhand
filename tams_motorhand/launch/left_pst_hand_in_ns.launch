@@ -12,7 +12,7 @@
     <group ns="hand">
         <!-- Allows to specify the ethernet interface/s to be used. It defaults to the value of the env var ETHERCAT_PORT
              More than one interface can be specified by concatenating them using underscore as a separator (e.g eth1_eth2_eth3) -->
-        <arg name="eth_port" default="eth2"/>
+        <arg name="eth_port" default="auxiliary2"/>
         <!-- Set to true for debugging -->
         <arg name="debug" default="false"/>
         <!-- Set to 0 if we don't want to run calibration controllers (e.g. for the muscle hand) -->
@@ -36,7 +36,8 @@
         <arg name="joint_state_pub_frequency" default="100"/>
 
         <!-- Loads the robot description from the file passed as an argument -->
-        <param name="robot_description" command="xacro $(arg robot_description) type:=left_pst"/>
+        <param name="robot_description"
+             command="xacro $(arg robot_description) type:=left_pst"/>
 
         <param name="/hand/mapping/$(arg hand_serial)" value="$(arg hand_id)"/>
         <param name="/hand/joint_prefix/$(arg hand_serial)" value="$(arg hand_id)_"/>
