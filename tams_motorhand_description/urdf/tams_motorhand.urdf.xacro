@@ -18,5 +18,9 @@
       <!-- shadow left motorhand PST sensing -->
       <xacro:sr_hand hand_type="hand_e" hand_version="E3M5" side="left" fingers="all" tip_sensors="pst" prox_sensors="none" mid_sensors="none" palm_sensor="none" mounting_plate="true" />
     </xacro:if>
+    <xacro:if value="${type == 'right_pst'}">
+      <!-- shadow right motorhand PST sensing -->
+      <xacro:sr_hand hand_type="hand_e" hand_version="E3M5" side="right" fingers="all" tip_sensors="pst" prox_sensors="none" mid_sensors="none" palm_sensor="none" mounting_plate="true" />
+    </xacro:if>
   </xacro:macro>
 </robot>
